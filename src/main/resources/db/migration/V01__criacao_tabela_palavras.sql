@@ -1,0 +1,4 @@
+CREATE TABLE tb_palavras (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    palavra VARCHAR(255) NOT NULL
+);
