@@ -13,7 +13,7 @@ public class Palavra {
     private Long id;
 
     private String palavra;
-
+//teste
     public Palavra() {
     }
 
