@@ -1,13 +1,13 @@
-package com.gft.palavra.dto.palavra;
+package com.gft.palavra.dto.etiqueta;
 
-public class RegistroPalavraDTO {
+public class RegistroEtiquetaDTO {
 
     private String nome;
 
-    public RegistroPalavraDTO() {
+    public RegistroEtiquetaDTO() {
     }
 
-    public RegistroPalavraDTO(String nome) {
+    public RegistroEtiquetaDTO(String nome) {
         this.nome = nome;
     }
 

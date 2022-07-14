@@ -1,25 +1,33 @@
 package com.gft.palavra.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.sun.istack.NotNull;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.Nullable;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "tb_palavras")
 public class Palavra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String palavra;
-//teste
+    @NotNull
+    private String nome;
+
+    @ManyToMany
+    private List<Etiqueta> listaEtiquetas;
+
     public Palavra() {
     }
 
-    public Palavra(Long id, String palavra) {
+    public Palavra(Long id, String nome, List<Etiqueta> listaEtiquetas) {
         this.id = id;
-        this.palavra = palavra;
+        this.nome = nome;
+        this.listaEtiquetas = listaEtiquetas;
     }
 
     public Long getId() {
@@ -30,11 +38,19 @@ public class Palavra {
         this.id = id;
     }
 
-    public String getPalavra() {
-        return palavra;
+    public String getNome() {
+        return nome;
     }
 
-    public void setPalavra(String palavra) {
-        this.palavra = palavra;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<Etiqueta> getListaEtiquetas() {
+        return listaEtiquetas;
+    }
+
+    public void setListaEtiquetas(List<Etiqueta> listaEtiquetas) {
+        this.listaEtiquetas = listaEtiquetas;
     }
 }

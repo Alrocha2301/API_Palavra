@@ -5,25 +5,25 @@ import com.gft.palavra.dto.palavra.ConversorPalavra;
 import com.gft.palavra.dto.palavra.RegistroPalavraDTO;
 import com.gft.palavra.entities.Palavra;
 import com.gft.palavra.services.PalavraService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("v1/palavras")
 public class PalavraController {
 
-    private PalavraService palavraService;
+    private final PalavraService palavraService;
 
     public PalavraController(PalavraService palavraService) {
         this.palavraService = palavraService;
     }
 
     @GetMapping
-    public ResponseEntity<Page<ConsultaPalavraDTO>> listarPalavras(@PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(palavraService.listarTodasAsPalavras(pageable).map(ConversorPalavra::fromEntidade));
+    public ResponseEntity<List<ConsultaPalavraDTO>> listarPalavras() {
+        return ResponseEntity.ok(palavraService.listarTodasAsPalavras().stream().map(ConversorPalavra::fromEntidade).collect(Collectors.toList()));
     }
 
     @PostMapping

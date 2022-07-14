@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,8 +23,8 @@ public class PalavraService {
         return palavraRepository.save(palavra);
     }
 
-    public Page<Palavra> listarTodasAsPalavras(Pageable pageable) {
-        return palavraRepository.findAll(pageable);
+    public List<Palavra> listarTodasAsPalavras() {
+        return palavraRepository.findAll();
     }
 
     public Palavra buscarPalavra(Long id) {
@@ -40,8 +41,6 @@ public class PalavraService {
     }
 
     public void excluirPalavra(Long id) {
-        Palavra palavra = this.buscarPalavra(id);
-
         palavraRepository.deleteById(id);
     }
 }
