@@ -65,7 +65,7 @@ public class EtiquetaController {
         }
     }
 
-    @DeleteMapping
+    @DeleteMapping("{id}")
     public ResponseEntity<ConsultaEtiquetaDTO> excluirPalavra(@PathVariable Long id) {
         try {
             etiquetaService.excluirEtiqueta(id);
@@ -74,4 +74,6 @@ public class EtiquetaController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 }
