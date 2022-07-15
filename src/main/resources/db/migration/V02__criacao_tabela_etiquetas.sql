@@ -1,7 +1,4 @@
-CREATE TABLE tb_palavras (
+CREATE TABLE tb_etiquetas (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL
 );
-
-
-

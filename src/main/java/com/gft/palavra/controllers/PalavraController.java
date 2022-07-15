@@ -1,29 +1,32 @@
 package com.gft.palavra.controllers;
 
+import com.gft.palavra.dto.etiqueta.ConversorEtiqueta;
+import com.gft.palavra.dto.etiqueta.RegistroEtiquetaDTO;
 import com.gft.palavra.dto.palavra.ConsultaPalavraDTO;
 import com.gft.palavra.dto.palavra.ConversorPalavra;
 import com.gft.palavra.dto.palavra.RegistroPalavraDTO;
+import com.gft.palavra.entities.Etiqueta;
 import com.gft.palavra.entities.Palavra;
 import com.gft.palavra.services.PalavraService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("v1/palavras")
 public class PalavraController {
 
-    private PalavraService palavraService;
+    private final PalavraService palavraService;
 
     public PalavraController(PalavraService palavraService) {
         this.palavraService = palavraService;
     }
 
     @GetMapping
-    public ResponseEntity<Page<ConsultaPalavraDTO>> listarPalavras(@PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(palavraService.listarTodasAsPalavras(pageable).map(ConversorPalavra::fromEntidade));
+    public ResponseEntity<List<ConsultaPalavraDTO>> listarPalavras() {
+        return ResponseEntity.ok(palavraService.listarTodasAsPalavras().stream().map(ConversorPalavra::fromEntidade).collect(Collectors.toList()));
     }
 
     @PostMapping
@@ -37,9 +40,19 @@ public class PalavraController {
     public ResponseEntity<ConsultaPalavraDTO> buscarPalavraPorId(@PathVariable Long id) {
 
         try {
-            Palavra palavra = palavraService.buscarPalavra(id);
+            Palavra palavra = palavraService.buscarPalavraPorId(id);
             return ResponseEntity.ok(ConversorPalavra.fromEntidade(palavra));
         } catch (RuntimeException ex) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<ConsultaPalavraDTO> buscarPalavraPorNome(@PathVariable String nome) {
+        try {
+            Palavra palavra = palavraService.buscarPalavraPorNome(nome);
+            return ResponseEntity.ok(ConversorPalavra.fromEntidade(palavra));
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -62,5 +75,12 @@ public class PalavraController {
         } catch (RuntimeException ex) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/listar/{id}")
+    public ResponseEntity<List<Etiqueta>> listarEtiquetasDePalavra(@PathVariable Long id) {
+        List<Etiqueta> lista = palavraService.buscarPalavraPorId(id).getListaEtiquetas();
+
+        return ResponseEntity.ok().body(lista);
     }
 }

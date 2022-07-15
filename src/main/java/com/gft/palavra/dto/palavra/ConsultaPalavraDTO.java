@@ -1,16 +1,22 @@
 package com.gft.palavra.dto.palavra;
 
+import com.gft.palavra.entities.Etiqueta;
+
+import java.util.List;
+
 public class ConsultaPalavraDTO {
 
     private Long id;
-    private String palavra;
+    private String nome;
+    private List<Etiqueta> listaEtiquetas;
 
     public ConsultaPalavraDTO() {
     }
 
-    public ConsultaPalavraDTO(Long id, String palavra) {
+    public ConsultaPalavraDTO(Long id, String nome, List<Etiqueta> listaEtiquetas) {
         this.id = id;
-        this.palavra = palavra;
+        this.nome = nome;
+        this.listaEtiquetas = listaEtiquetas;
     }
 
     public Long getId() {
@@ -21,11 +27,19 @@ public class ConsultaPalavraDTO {
         this.id = id;
     }
 
-    public String getPalavra() {
-        return palavra;
+    public String getNome() {
+        return nome;
     }
 
-    public void setPalavra(String palavra) {
-        this.palavra = palavra;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<Etiqueta> getListaEtiquetas() {
+        return listaEtiquetas;
+    }
+
+    public void setListaEtiquetas(List<Etiqueta> listaEtiquetas) {
+        this.listaEtiquetas = listaEtiquetas;
     }
 }

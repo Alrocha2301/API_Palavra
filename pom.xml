@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.gft</groupId>
-	<artifactId>palavra</artifactId>
+	<artifactId>nome</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>palavra</name>
+	<name>nome</name>
 	<description>API de palvra</description>
 	<properties>
 		<java.version>17</java.version>
